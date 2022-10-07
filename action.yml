@@ -1,13 +1,35 @@
-name: 'Vercel deployments cleanup'
-description: 'Automatically remove old preview deployments'
+name: 'Get Vercel Preview URL'
+description: 'Get the preview URL of a Vercel deployment'
+branding:
+  icon: link
+  color: gray-dark
+
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  vercel_access_token:
+    description: 'https://vercel.com/docs/rest-api#introduction/api-basics/authentication/creating-an-access-token'
     required: true
-    default: 'World'
+  vercel_team_id:
+    description: 'https://vercel.com/docs/rest-api#introduction/api-basics/authentication/accessing-resources-owned-by-a-team'
+    required: true
+  gh_token:
+    description: 'https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret'
+    required: true
+  prefix_url:
+    description: 'Pass a string to prefix the url'
+    default: 'https://'
+  prefix_path:
+    description: 'Pass a string to prefix the url path'
+  timeout:
+    description: 'Time spent waiting between requests to the Vercel Api'
+    default: 3000
+  limit:
+    description: 'The pagination limit of the initial vercel api request'
+    default: 20
+
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  preview_url:
+    description: 'Vercel deployment preview URL'
+
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'

@@ -1,0 +1,19 @@
+name: Deployments Cleanup
+
+on: workflow_dispatch
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get Vercel Preview URL
+        id: get-vercel-preview-url
+        uses: skydiver/vercel-deployments-cleanup@main
+        with:
+          vercel_access_token: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+          vercel_team_id: ${{ secrets.VERCEL_TEAM_ID }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Echo preview
+        run: echo "Preview url is ready ${{ steps.get-vercel-preview-url.outputs.preview_url }}"
